@@ -1,0 +1,251 @@
+:root {
+  --blue: rgb(45, 85, 195);
+  --ocean: rgb(45, 103, 195);
+  --ice: rgb(45, 165, 195);
+
+  --bg-color: rgb(20, 20, 20);
+  --card-color: rgb(23, 23, 23);
+}
+
+body {
+  background-color: var(--bg-color);
+  display: grid;
+  height: 100vh;
+  margin: 0px;
+  justify-items: center;
+  line-height: 25px;
+  color: rgb(240, 240, 240);
+  font-family: "Rubik", sans-serif;
+  font-size: clamp(1.2em, 1.2vw, 4em);
+  padding: 20px;
+}
+
+div > .content {
+  margin-bottom: 250px;
+}
+
+.question {
+  margin-top: 200px;
+  margin-bottom: 350px;
+}
+
+h1 {
+  color: rgb(240, 240, 240);
+  font-family: "Rubik", sans-serif;
+  font-size: clamp(2em, 2vw, 4em);
+  font-weight: 600;
+  margin: 0px;
+  padding: 20px;
+  text-align: center;
+  margin-top: 40px;
+}
+
+h2 {
+  color: rgb(240, 240, 240);
+  font-family: "Rubik", sans-serif;
+  font-size: clamp(1.6em, 1.6vw, 4em);
+  font-weight: 400;
+  margin: 0px;
+  padding: 20px;
+  line-height: 40px;
+  text-align: center;
+}
+
+a {
+  animation: background-pan 3s linear infinite;
+  background: linear-gradient(
+    to right,
+    var(--blue),
+    var(--ocean),
+    var(--ice),
+    var(--blue)
+  );
+  background-size: 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  white-space: nowrap;
+}
+
+#img-container {
+  text-align: center;
+}
+
+img {
+  margin: auto;
+}
+
+@keyframes background-pan {
+  from {
+    background-position: 0% center;
+  }
+
+  to {
+    background-position: -200% center;
+  }
+}
+
+h1 > .magic {
+  display: inline-block;
+  position: relative;
+}
+
+h3 {
+  font-weight: 800px;
+}
+
+div > .card-body {
+  align-items: center;
+  background-color: var(--bg-color);
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  margin: 0px;
+  overflow: hidden;
+  padding: 0px;
+}
+
+#cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  max-width: 916px;
+  width: calc(100% - 20px);
+}
+
+#cards:hover > .card::after {
+  opacity: 1;
+}
+
+.card {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  height: 500px;
+  flex-direction: column;
+  position: relative;
+  width: 300px;
+}
+
+.card:hover::before {
+  opacity: 1;
+}
+
+.card::before,
+.card::after {
+  border-radius: inherit;
+  content: "";
+  height: 100%;
+  left: 0px;
+  opacity: 0;
+  position: absolute;
+  top: 0px;
+  transition: opacity 500ms;
+  width: 100%;
+}
+
+.card::before {
+  background: radial-gradient(
+    800px circle at var(--mouse-x) var(--mouse-y),
+    rgba(255, 255, 255, 0.06),
+    transparent 40%
+  );
+  z-index: 3;
+}
+
+.card::after {
+  background: radial-gradient(
+    600px circle at var(--mouse-x) var(--mouse-y),
+    rgba(255, 255, 255, 0.4),
+    transparent 40%
+  );
+  z-index: 1;
+}
+
+.card > .card-content {
+  background-color: var(--card-color);
+  border-radius: inherit;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  inset: 1px;
+  padding: 10px;
+  position: absolute;
+  z-index: 2;
+}
+
+.magic-text {
+  font-weight: 600;
+  animation: background-pan 3s linear infinite;
+  background: linear-gradient(
+    to right,
+    var(--blue),
+    var(--ocean),
+    var(--ice),
+    var(--blue)
+  );
+  background-size: 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  white-space: nowrap;
+}
+
+h3 > .magic-text {
+  font-weight: 800px;
+}
+
+.glow-text {
+  color: var(--ice);
+  text-shadow: 0px 0px 5px var(--blue), 0px 0px 7px var(--ocean), 0px 0px 10px var(--ice);
+}
+
+h4 {
+  font-weight: 400;
+}
+
+#main {
+  width: 66%;
+  position: absolute;
+}
+
+@media (max-width: 950px) {
+  #cards {
+    max-width: 950px;
+    padding: 0px;
+    margin: auto;
+    justify-content: center;
+  }
+
+  .card {
+    flex-shrink: 1;
+    height: 450px;
+    width: 400px;
+  }
+
+  #main {
+    width: 90%;
+    position: relative;
+  }
+
+  body {
+    font-size: clamp(1.4em, 1.4vw, 4em);
+    margin: auto;
+  }
+
+  img {
+    margin: 0px;
+    object-fit: contain;
+  }
+
+  h1 {
+    padding: 0px;
+    font-size: clamp(1.8em, 1.8vw, 4em);
+    font-weight: 600;
+  }
+
+  h2 {
+    font-size: clamp(1.4em, 1.4vw, 4em);
+    font-weight: 400;
+    margin-top: 15px;
+  }
+}

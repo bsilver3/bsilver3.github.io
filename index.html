@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Chronostasis</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+  <script src="https://d3js.org/d3.v4.js"></script>
+</head>
+
+<style>
+
+  .line {
+    fill: none;
+    stroke: rgb(45, 165, 195);
+    stroke-width: 2px;
+  }
+
+  .axisWhite line{
+    stroke: rgb(240,240,240);
+  }
+
+  .axisWhite path{
+    stroke: rgb(240,240,240);
+  }
+
+  .axisWhite text{
+    fill: rgb(240,240,240);
+  }
+
+  </style>
+
+<body>
+    <div id="main">
+
+    <div class="question">
+
+      <p>
+        Recall that incredibly focused moment, during the final moments of a project, test, or deadline. 
+        The analog clock just out of your vision silently ticks away, reminding you to focus, 
+        although you don’t know how much time remains. You are “locked in”. Nothing can interrupt your intense focus. 
+        However, without the audible rhythm of the clock ticking, you quickly shift your attention to the clock to check how much time is left. 
+        Wait- what!? It looked like the second hand stopped for a bit!?
+      </p>
+
+      <p>
+        That brief moment when time seems to stretch, and you're left wondering if reality just hit a pause button – 
+        <span class="magic-text">that's chronostasis at play. </span><br>
+        It's like a magic trick your brain pulls when you're laser-focused on something, 
+        and then, surprise, a new thing pops up.
+      </p>
+
+      <p>
+        Imagine your eyes doing a quick dance between two points – that's called a <span class="glow-text">saccadic eye movement. </span>
+        When locking on the new surprise object after that quick saccadic eye dance, 
+        your brain subtly distorts your perception, which tricks you into thinking the surprise lasted longer than it actually did. 
+        Think about how someone might get dizzy after spinning around.
+      </p>
+
+      <p>
+        Now, here's the intriguing part that keeps me hooked: how often does this time-bending magic unfold in our daily lives, 
+        and what role does the speed of our saccadic eye dance play in the enchantment of chronostasis? 
+        Join me on this journey as we unravel the secrets behind this captivating illusion and discover the hidden rhythms of time in the everyday.
+      </p>
+
+      <h1>My <span class="magic-text">Question</span></h1>
+      <h2>
+          <span class="magic-text">Chronostasis</span> - What percentage of people have experienced it, and how does it scale with the speed of an eye movement?
+      </h2>
+    </div>
+
+    <div class="content">
+      <h1>My <span class="magic-text">Data</span></h1>
+      <p>
+          My data was taken from a dataset at a hospital where patients had their eye movements tracked and recorded.
+          The full dataset can be found <a href="https://github.com/bsilver3/DataScience1/blob/main/Projects/FinalProject/SaccadesDataset.csv" target=”_blank”>here</a>.
+      </p>
+    </div>
+
+    <div class="content">
+      <h1>My <span class="magic-text">Analysis</span></h1>
+      <p>
+        <div id="cards">
+          <div class="card">
+            <div class="card-content">
+              <div class="card-info-wrapper">
+                <div class="card-info">
+                  <div class="card-info-title">
+                    <h3><span class="magic-text">230.0</span> Median Velocity</h3>
+                    <h4>Velocity represents the speed of the eye movement. This shows that generally, a person's eye (with resistance for outliers) moving from point to point during the experiment moves at a fairly large speed.                          </h4>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-content">
+              <div class="card-info-wrapper">
+                <div class="card-info">
+                  <div class="card-info-title">
+                    <h3><span class="magic-text">2.75</span> Median Amplitude</h3>
+                    <h4>Amplitude represents the force or pressure of an eye movement. This shows that generally, a person's eye (with resistance for outliers) moving from point to point during the experiment moves at a fairly forceful rate, and will generally have to correct for moving past the point.</h4>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-content">
+              <div class="card-info-wrapper">
+                <div class="card-info">
+                  <div class="card-info-title">
+                    <h3><span class="magic-text">1.84%</span> of eye movements caused chronostasis</h3>
+                    <h4>This shows that in regular life (this dataset was just simple eye testing at a hospital), the probability of actually experiencing chronostasis is fairly low, simply because the speed of the eye isn't high enough to make the effect noticable.</h4>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </p>
+    </div>
+
+    <div class="content">
+      <h1>My <span class="magic-text">Visualizations</span></h1>
+
+      <div id="scatterplot" style="text-align: center;"></div>
+    </div>
+
+    <div class="content">
+      <h1>My <span class="magic-text">Answer</span></h1>
+      <p>
+        Chronostasis is a phenomenon where it feels like you are “stopped in time”. 
+        This generally occurs when your brain has to overcorrect after an eye movement.
+      </p>
+        When analyzing the data, we can see that there is a positive association between velocity and amplitude, 
+        meaning that the faster somebody moves their eye, the more likely they are to experience a chronostasis phenomenon, 
+        due to their eye using more force and having to overcorrect.
+      <p>
+        I calculated the amount of people with an amplitude above 20.0, 
+        which is the amplitude that it generally takes to have a substantial amount of correction in the brain. 
+        I then calculated the percentage of people who had the experience of chronostasis, 
+        and I found that in 1.84% of saccadic eye movements, chronostasis occurred.
+      </p>
+      <p>
+        However, this can easily be manipulated by intensely focusing on a point, and then quickly shifting your focus to another object, 
+        such as a clock. If the second hand seems to freeze for a second, then you have experienced a form of chronostasis.
+      </p>
+    </div>
+  </div>
+</body>
+
+<script src="script.js"></script>
