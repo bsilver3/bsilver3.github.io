@@ -13,15 +13,26 @@ body {
   height: 100vh;
   margin: 0px;
   justify-items: center;
-  line-height: 25px;
+  line-height: 35px;
   color: rgb(240, 240, 240);
   font-family: "Rubik", sans-serif;
   font-size: clamp(1.2em, 1.2vw, 4em);
-  padding: 20px;
+
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  -ms-text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+  overflow-x: hidden
+}
+
+p {
+  margin-block-start: 350px;
+  margin-block-end: 350px;
 }
 
 div > .content {
-  margin-bottom: 250px;
+  margin-bottom: 1000px;
 }
 
 .question {
@@ -32,12 +43,15 @@ div > .content {
 h1 {
   color: rgb(240, 240, 240);
   font-family: "Rubik", sans-serif;
-  font-size: clamp(2em, 2vw, 4em);
+  font-size: 5lvw;
   font-weight: 600;
-  margin: 0px;
+  margin-left: 50px;
+  margin-right: 50px;
   padding: 20px;
   text-align: center;
-  margin-top: 40px;
+  margin-top: 25lvh;
+  margin-bottom: 40lvh;
+  line-height: 20lvh;
 }
 
 h2 {
@@ -108,8 +122,9 @@ div > .card-body {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  max-width: 916px;
+  max-width: 100%;
   width: calc(100% - 20px);
+  justify-content: center;
 }
 
 #cards:hover > .card::after {
@@ -199,14 +214,83 @@ h3 > .magic-text {
   text-shadow: 0px 0px 5px var(--blue), 0px 0px 7px var(--ocean), 0px 0px 10px var(--ice);
 }
 
+b {
+  color: var(--ice);
+  text-shadow: 0px 0px 5px var(--blue), 0px 0px 7px var(--ocean), 0px 0px 10px var(--ice);
+}
+
 h4 {
   font-weight: 400;
 }
 
 #main {
-  width: 66%;
-  position: absolute;
+  width: 45%;
+  padding-right: 4%;
+  padding-left: 1%;
 }
+
+#visualizations{
+  width: 50%;
+  position: sticky;
+  top: 0px;
+  height: 100lvh;
+}
+
+.main-content{
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.para-text{
+  width: 50%;
+  padding: 0% 25%;
+}
+
+.concluded-numbers{
+  width: 90%;
+  margin: auto;
+}
+
+.shadow {
+  --direction: 0deg;
+  --shadow-size: 300px;
+  bottom: 0px;
+  pointer-events: none;
+  position: sticky;
+  height: var(--shadow-size);
+  margin-top: calc(-1 * var(--shadow-size));
+  background: linear-gradient(var(--direction),var(--bg-color) 0%,transparent 100%);
+  width: 100%;
+  z-index: 4;
+}
+
+.shadow-top {
+  --direction: 180deg;
+  --shadow-size: 300px;
+  top: 0px;
+  pointer-events: none;
+  position: sticky;
+  height: var(--shadow-size);
+  margin-top: calc(-1 * var(--shadow-size));
+  background: linear-gradient(var(--direction),var(--bg-color) 0%,transparent 100%);
+  width: 100%;
+  z-index: 4;
+}
+
+.visualization-container{
+  --overflow-space: 200px;
+    user-select: none;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    padding-top: 25%;
+}
+
 
 @media (max-width: 950px) {
   #cards {
@@ -248,4 +332,36 @@ h4 {
     font-weight: 400;
     margin-top: 15px;
   }
+
+  .para-text{
+    width: 90%;
+    margin: auto;
+    padding: 0px;
+  }
+
+  .concluded-numbers{
+    width: 90%;
+    margin: auto;
+  }
+
+  #visualizations{
+    width: inherit;
+    position: inherit;
+    top: 0px;
+    height: inherit;
+  }
+
+  #graph-scatterplot {
+		opacity: 1;
+		-webkit-transform: scale(0.9);
+			 -moz-transform: scale(0.9);
+				-ms-transform: scale(0.9);
+				 -o-transform: scale(0.9);
+						transform: scale(0.9);
+		-webkit-transition: all 0.5s ease-in-out;
+			 -moz-transition: all 0.5s ease-in-out;
+				-ms-transition: all 0.5s ease-in-out;
+				 -o-transition: all 0.5s ease-in-out;
+						transition: all 0.5s ease-in-out;
+	}
 }

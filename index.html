@@ -7,6 +7,9 @@
   <title>Chronostasis</title>
   <link href="style.css" rel="stylesheet" type="text/css" />
   <script src="https://d3js.org/d3.v4.js"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://scrollmagic.io/assets/js/lib/greensock/TweenMax.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.8/ScrollMagic.min.js" integrity="sha512-8E3KZoPoZCD+1dgfqhPbejQBnQfBXe8FuwL4z/c8sTrgeDMFEnoyTlH3obB4/fV+6Sg0a0XF+L/6xS4Xx1fUEg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 
 <style>
@@ -29,57 +32,257 @@
     fill: rgb(240,240,240);
   }
 
-  </style>
+</style>
+
+<style type="text/css">
+
+  #graph-scatterplot {
+		opacity: 0;
+		-webkit-transform: scale(0.9);
+			 -moz-transform: scale(0.9);
+				-ms-transform: scale(0.9);
+				 -o-transform: scale(0.9);
+						transform: scale(0.9);
+		-webkit-transition: all 0.5s ease-in-out;
+			 -moz-transition: all 0.5s ease-in-out;
+				-ms-transition: all 0.5s ease-in-out;
+				 -o-transition: all 0.5s ease-in-out;
+						transition: all 0.5s ease-in-out;
+	}
+
+	#graph-scatterplot.visible {
+		opacity: 1;
+      -webkit-transform: scale(0.9);
+			 -moz-transform: scale(0.9);
+				-ms-transform: scale(0.9);
+				 -o-transform: scale(0.9);
+						transform: scale(0.9);
+	}
+
+  @media (max-width: 950px) {
+    #graph-scatterplot {
+      opacity: 1;
+    }
+  }
+
+</style>
 
 <body>
-    <div id="main">
 
-    <div class="question">
-
-      <p>
-        Recall that incredibly focused moment, during the final moments of a project, test, or deadline. 
-        The analog clock just out of your vision silently ticks away, reminding you to focus, 
-        although you don’t know how much time remains. You are “locked in”. Nothing can interrupt your intense focus. 
-        However, without the audible rhythm of the clock ticking, you quickly shift your attention to the clock to check how much time is left. 
-        Wait- what!? It looked like the second hand stopped for a bit!?
-      </p>
-
-      <p>
-        That brief moment when time seems to stretch, and you're left wondering if reality just hit a pause button – 
-        <span class="magic-text">that's chronostasis at play. </span><br>
-        It's like a magic trick your brain pulls when you're laser-focused on something, 
-        and then, surprise, a new thing pops up.
-      </p>
-
-      <p>
-        Imagine your eyes doing a quick dance between two points – that's called a <span class="glow-text">saccadic eye movement. </span>
-        When locking on the new surprise object after that quick saccadic eye dance, 
-        your brain subtly distorts your perception, which tricks you into thinking the surprise lasted longer than it actually did. 
-        Think about how someone might get dizzy after spinning around.
-      </p>
-
-      <p>
-        Now, here's the intriguing part that keeps me hooked: how often does this time-bending magic unfold in our daily lives, 
-        and what role does the speed of our saccadic eye dance play in the enchantment of chronostasis? 
-        Join me on this journey as we unravel the secrets behind this captivating illusion and discover the hidden rhythms of time in the everyday.
-      </p>
-
-      <h1>My <span class="magic-text">Question</span></h1>
-      <h2>
-          <span class="magic-text">Chronostasis</span> - What percentage of people have experienced it, and how does it scale with the speed of an eye movement?
-      </h2>
+  <div>
+    <div direction="bottom" class="shadow-top"></div>
+    
+    <div class="title">
+      <h1>
+        The Magical Time-Bending Phenomenon of <span class="magic-text">Chronostasis</span>
+      </h1>
+    </div>
+  
+    <div class="para-text" id="intro-content">
+      <div class="content" id="intro">
+        <div>
+          <p>
+            Recall that incredibly focused moment, during the final moments of a project, test, or deadline.
+          </p>
+    
+          <p>
+            The analog clock just out of your vision silently ticks away, reminding you to focus, although you don’t know how much time remains. 
+            You are “locked in”. Nothing can interrupt your intense focus.
+          </p>
+    
+          <p>
+            However, without the audible rhythm of the clock ticking, you quickly shift your attention to the clock to check how much time is left.
+          </p>
+    
+          <p>
+            Wait- what!? It looked like the second hand stopped for a bit!?
+          </p>
+        </div>
+      </div>
+    
+      <div class="content" id="main-question">
+        <p>
+          That brief moment when time seems to stretch, and you're left wondering if you're trapped in a simulation where someone accidentally hit a pause button – 
+          <span class="magic-text">that's chronostasis at play. </span><br>
+          It's like a magic trick your brain pulls when you're laser-focused on something, 
+          and then, surprise, a new thing pops up.
+        </p>
+    
+        <p>
+          If this mysterious visual phenomenon fascinates you, join me on this journey as we unravel the secrets behind this captivating illusion and discover the hidden rhythms of time in the everyday.
+        </p>
+      </div>
     </div>
 
-    <div class="content">
-      <h1>My <span class="magic-text">Data</span></h1>
+    <div class="para-text" id="saccades-info">
       <p>
-          My data was taken from a dataset at a hospital where patients had their eye movements tracked and recorded.
-          The full dataset can be found <a href="https://github.com/bsilver3/DataScience1/blob/main/Projects/FinalProject/SaccadesDataset.csv" target=”_blank”>here</a>.
+        Let's start with the whole reason that this effect takes place in the first place: your eyes.
+      </p>
+
+      <p>
+        Your eyes and your brain have a unique connection with each other. Your eyes directly feed your brain data, and your brain 
+        processes that data, then identifies patterns found in that data.
+      </p>
+      <!-- To-do: Add a visualization that represents the association between the brain and the eyes -->
+
+      <p>
+        Your eyes also have a very special movement that they do, called a <b>saccadic eye movement</b>.
+      </p>
+
+      <p>
+        In this movement, both eyes move at the same time from one point of fixation towards another. 
+        This movement is incredibly fast, peaking at angular velocities up to 700 degrees per second.
+      </p>
+
+      <p>
+        Your eyes perform this movement multiple times per second, and this is what allows your brain to gather the most information that it can.<br>
+        This is why if you look at someone's eyes when they are watching a movie, their eyes will look like they are "jumping around".
+      </p>
+
+      <p>
+        Because I want to see how the speed of these movements affects chronostasis, let's take a deeper look into these movements.
+      </p>
+    </div>
+  
+    <div class="main-content">
+
+      <div id="visualizations">
+        <script>
+          var controller = new ScrollMagic.Controller();
+        </script>
+
+        <div class="visualization-container">
+
+          <div id="graph-scatterplot">
+            <div id="scatterplot" style="text-align: center;"></div>
+          </div>
+
+          <script>
+            $(function () {
+              var scene = new ScrollMagic.Scene({duration: 1800, triggerElement: '#saccades-data', offset: -150})
+                .setClassToggle("#graph-scatterplot", "visible")
+                .addTo(controller);
+            });
+          </script>
+
+        </div>
+      </div>
+
+      <div id="main">
+    
+        <div class="content" id="saccades-data">
+          <p>
+            To do this, let’s take a look at the data from regular patients who had their eyes tested, specifically relating to saccades.
+          </p>
+    
+          <!-- (Fade in visualization) -->
+          <p>
+            This visualization shows the results from the testing of two variables:<br>
+            <b>Amplitude</b>, which is the distance that the patients’ eyes moved, 
+            and <b>Velocity</b>, which is the speed that the patients’ eyes moved.
+          </p>
+    
+
+          <p>
+            With this data, there's a clear positive relationship between amplitude and velocity.<br>
+            This means that the further away an object is, the faster the eyes will move to it.
+          </p>
+    
+          <p>
+            Okay, so now we know that there's a relationship between these two random values.<br>
+            Now how does this relate to chronostasis?
+          </p>
+        </div>
+    
+      </div>
+
+    </div>
+
+    <div class="para-text" id="blur-analysis">
+      <!-- (Fade in visualization of what a blur would look like as the eye moves) -->
+      <p>
+        As the eyes move from point to point, they create a blur.
+      </p>
+
+      <p>
+        This blur is directly related to the amplitude of the eye movement.
+      </p>
+
+      <!-- (Fade in visualization comparing blur to amplitude and velocity) -->
+      <p>
+        The further an eye moves, the longer there will be a blur.<br>
+        This blur will also get stronger as the eye movement gets faster, meaning the eye will take in less information.
+      </p>
+
+      <!-- (Fade in definitions on hover for amplitude and velocity) -->
+      <p>
+        From the data that we looked at, we know that there is a positive association between the <span class="glow-text" id="amplitude">amplitude</span> and <span class="glow-text" id="velocity">velocity</span> of a saccadic eye movement.<br>
+        Because velocity will get larger as amplitude increases (and vice versa), this means that this blur will also get stronger and longer if the amplitude increases.<br>
+        So, in simple terms, a bigger eye movement equals a bigger blur.
       </p>
     </div>
 
-    <div class="content">
-      <h1>My <span class="magic-text">Analysis</span></h1>
+    <div class="para-text" id="blur-reasoning">
+      <!-- (Visualization of what this looks like - do a timeline animation where a gap is being filled) -->
+      <p>
+        As humans, we don’t actually <i>see</i> this blur because of how our brain works. The brain doesn’t actually get any visual information from this blur.
+      </p>
+
+      <p>
+        Because the brain wants a constant flow of visual information, it will try to fill in this gap where the blur is with what it <i>thinks</i> should go there.
+      </p>
+
+      <p>
+        Since the brain can’t properly interpret data like this, it will fill in this gap of data with what it can see fully after the eye movement.
+        This means that the object will appear “frozen in time”, because the same image of the object will appear for longer than it is in reality.
+      </p>
+    </div>
+
+    <div class="para-text" id="analysis-narrative">
+      <p>
+        So now we know what chronostasis is, and we've revealed the mystery behind it.<br>
+        But now I want to look at the deeper stuff. The nerdy stuff. The <b>data</b>. 
+        It'll be pretty technical, so feel free to scroll down to the actual numbers.
+      </p>
+
+      <p>
+        So, I went and reanalyzed that data from the testing of saccades. There were a few values I wanted to look at specifically.
+      </p>
+
+      <p>
+        Chronostasis is directly caused by saccades, but not all saccades are strong enough for people to notice the effect.<br>
+        Remember that the length of the blur (the part that the brain fills in to cause chronostasis) is directly related to the amplitude and velocity of the eye movements.<br>
+        So I took a look at the median amplitude and velocity, to see just how "powerful" a normal saccade is.
+      </p>
+
+      <p>
+        Then, the most important part, is to see just how "rare" this phenomena is.<br>
+        People will only notice chronostasis if the "time freezing" is long enough. This looks at the length of the blur, which is directly related to the amplitude of the saccade.
+      </p>
+
+      <p>
+        So how can we find the length of the blur?<br>
+        We have the angular velocity and distance traveled, but all we need is time. We can solve for this missing variable very easily using some basic physics formulas (which is basically just 8th grade math).<br>
+      </p>
+
+      <p>
+        My 11th grade physics class taught me that angular velocity is equal to the change in distance, divided by the time it takes for the motion.<br>
+        However, we don't have the time, but we do have the other two variables, so we can rewrite the equation and then solve for time.<br>
+        For example, if we plug in the values of our median, then we get a resulting time of 0.011957 seconds.
+      </p>
+
+      <p>
+        0.011957 seconds- that's just less than 12 milliseconds. The average saccade takes just less than 12 milliseconds, which means the blur would also be that short as well.<br>
+        But that's too short for us to notice anything. Because of this, I set what I would consider to be a "noticeable" amount of chronostasis: 50 milliseconds.
+      </p>
+
+      <p>
+        I then compared the length of all the blurs to the length of my "noticeable" blur. I then found the proportion of saccades that have a blur larger than my value for this sample.<br>
+        So, from that, I concluded that roughly 3.3275% of these saccadic eye movements caused chronostasis.
+      </p>
+    </div>
+
+    <div class="concluded-numbers">
       <p>
         <div id="cards">
           <div class="card">
@@ -88,7 +291,7 @@
                 <div class="card-info">
                   <div class="card-info-title">
                     <h3><span class="magic-text">230.0</span> Median Velocity</h3>
-                    <h4>Velocity represents the speed of the eye movement. This shows that generally, a person's eye (with resistance for outliers) moving from point to point during the experiment moves at a fairly large speed.                          </h4>
+                    <h4>Velocity represents the speed of the eye movement. This shows that generally, a person's eye (with resistance for outliers) moving from point to point during the experiment moves at a fairly large speed.</h4>
                   </div>
                 </div>
               </div>
@@ -111,8 +314,8 @@
               <div class="card-info-wrapper">
                 <div class="card-info">
                   <div class="card-info-title">
-                    <h3><span class="magic-text">1.84%</span> of eye movements caused chronostasis</h3>
-                    <h4>This shows that in regular life (this dataset was just simple eye testing at a hospital), the probability of actually experiencing chronostasis is fairly low, simply because the speed of the eye isn't high enough to make the effect noticable.</h4>
+                    <h3><span class="magic-text">3.327%</span> of eye movements caused chronostasis</h3>
+                    <h4>This shows that in regular life (this dataset was just simple eye testing at a hospital), the probability of actually experiencing chronostasis is fairly low, simply because the speed of the eye isn't high enough to make the effect noticeable.</h4>
                   </div>
                 </div>
               </div>
@@ -122,33 +325,33 @@
       </p>
     </div>
 
-    <div class="content">
-      <h1>My <span class="magic-text">Visualizations</span></h1>
+    <div class="para-text" id="conclusion">
+      <p>
+        So let’s recap- what <i>is</i> chronostasis?
+      </p>
 
-      <div id="scatterplot" style="text-align: center;"></div>
+      <p>
+        Chronostasis is a common experience where things seem to freeze in time for a moment.<br>
+        It occurs when you shift your eyes from one thing to another, and your brain fills in details from the time your eyes are moving.
+      </p>
+
+      <p>
+        This "freezing" effect is more noticeable when you look at something far away, since your eyes move longer distances, requiring your brain to fill in more information.
+      </p>
+
+      <p>
+        We know that this effect seems random when it happens, and it takes you off guard when it does occur. However, there's an easy way to replicate this effect.<br>
+        To try it yourself, start by concentrating on one thing, then quickly shift your focus to another thing that is out of your vision, like a clock on the wall. 
+        If time seems to "freeze" on the second hand for a short period of time, then you have successfully experienced a form of chronostasis.<br>
+        But remember, the real surprise happens when it catches you off guard, since your brain will be ready for your staged attempts.
+      </p>
     </div>
 
-    <div class="content">
-      <h1>My <span class="magic-text">Answer</span></h1>
-      <p>
-        Chronostasis is a phenomenon where it feels like you are “stopped in time”. 
-        This generally occurs when your brain has to overcorrect after an eye movement.
-      </p>
-        When analyzing the data, we can see that there is a positive association between velocity and amplitude, 
-        meaning that the faster somebody moves their eye, the more likely they are to experience a chronostasis phenomenon, 
-        due to their eye using more force and having to overcorrect.
-      <p>
-        I calculated the amount of people with an amplitude above 20.0, 
-        which is the amplitude that it generally takes to have a substantial amount of correction in the brain. 
-        I then calculated the percentage of people who had the experience of chronostasis, 
-        and I found that in 1.84% of saccadic eye movements, chronostasis occurred.
-      </p>
-      <p>
-        However, this can easily be manipulated by intensely focusing on a point, and then quickly shifting your focus to another object, 
-        such as a clock. If the second hand seems to freeze for a second, then you have experienced a form of chronostasis.
-      </p>
-    </div>
   </div>
-</body>
 
-<script src="script.js"></script>
+  <div direction="top" class="shadow"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
